@@ -39,9 +39,7 @@ export class OtpService {
     const rateLimitTTL = 60;
     const isRateLimited = await this.redisService.get(redisRateKey);
     if (isRateLimited) {
-      throw new BadRequestException(
-        'Please wait before requesting another OTP.',
-      );
+      throw new BadRequestException('Please try again later!');
     }
 
     const otp = generateOtp();
@@ -60,7 +58,7 @@ export class OtpService {
         attempts--;
         if (attempts === 0) {
           throw new InternalServerErrorException(
-            'Failed to send OTP after multiple attempts.',
+            'Something went wrong. Please try again!',
           );
         }
         await new Promise((resolve) =>
@@ -85,11 +83,11 @@ export class OtpService {
     const storedHashedOtp = await this.redisService.get(redisOtpKey);
 
     if (!storedHashedOtp) {
-      throw new BadRequestException('OTP expired or not found.');
+      throw new BadRequestException('Invalid or expired!');
     }
     const isMatch = await bcrypt.compare(otp, storedHashedOtp);
     if (!isMatch) {
-      throw new BadRequestException('Invalid OTP.');
+      throw new BadRequestException('Invalid or expired!');
     }
 
     await this.redisService.del(redisOtpKey);

@@ -37,7 +37,7 @@ export class EmailService {
       this.logger.log(`OTP email sent to ${to}`);
     } catch (error) {
       this.logger.error(`Failed to send OTP to ${to}`, error.stack);
-      throw new Error('Failed to send OTP email');
+      throw new Error('Something went wrong. Please try again later!');
     }
   }
 }
