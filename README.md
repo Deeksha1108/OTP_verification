@@ -6,7 +6,7 @@ Built using **NestJS**, **Redis**, and **Nodemailer**, this microservice handles
 
 ---
 
-## 🔐 Key Features
+## Key Features
 
 - OTPs are generated and sent to user’s email
 - OTPs are stored in Redis temporarily and **hashed using bcrypt**
@@ -21,7 +21,7 @@ Built using **NestJS**, **Redis**, and **Nodemailer**, this microservice handles
 
 ---
 
-## 🧩 Real-World Use Case
+## Real-World Use Case
 
 When a user signs up or logs in:
 
@@ -34,7 +34,7 @@ When a user signs up or logs in:
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 - **NestJS** (Node.js backend framework)
 - **Redis** (via `ioredis`)
@@ -44,7 +44,7 @@ When a user signs up or logs in:
 
 ---
 
-## 📁 Folder Structure
+## Folder Structure
 
 ```bash
 OTP/
@@ -129,7 +129,7 @@ http://localhost:3000/api
 
 ### Step 1: Send OTP
 
-```http
+```
 POST http://localhost:3000/otp/send
 
 Request Body:
@@ -145,6 +145,8 @@ Response:
 ```
 
 ### Step 2: Verify OTP
+
+```
 
 POST http://localhost:3000/otp/verify
 
@@ -162,6 +164,7 @@ OR
 {
 "message": "Invalid or expired OTP"
 }
+```
 
 ---
 
